@@ -4,4 +4,4 @@ project(triangle)
 add_subdirectory(triangle)
 add_subdirectory(showme)
 add_subdirectory(tricall)
-
+add_subdirectory(test)

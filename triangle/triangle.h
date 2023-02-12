@@ -256,35 +256,50 @@
 #endif /* not SINGLE */
 
 struct triangulateio {
-  TRI_REAL *pointlist;                                               /* In / out */
-  TRI_REAL *pointattributelist;                                      /* In / out */
-  int *pointmarkerlist;                                          /* In / out */
-  int numberofpoints;                                            /* In / out */
-  int numberofpointattributes;                                   /* In / out */
+  TRI_REAL *pointlist{nullptr};						/* In / out */
+  TRI_REAL *pointattributelist{ nullptr };          /* In / out */
+  int *pointmarkerlist{ nullptr };					/* In / out */
+  int numberofpoints{ 0 };							/* In / out */
+  int numberofpointattributes{ 0 };					/* In / out */
 
-  int *trianglelist;                                             /* In / out */
-  TRI_REAL *triangleattributelist;                                   /* In / out */
-  TRI_REAL *trianglearealist;                                         /* In only */
-  int *neighborlist;                                             /* Out only */
-  int numberoftriangles;                                         /* In / out */
-  int numberofcorners;                                           /* In / out */
-  int numberoftriangleattributes;                                /* In / out */
+  int *trianglelist{ nullptr };                     /* In / out */
+  TRI_REAL *triangleattributelist{ nullptr };       /* In / out */
+  TRI_REAL *trianglearealist{ nullptr };            /* In only */
+  int *neighborlist{ nullptr };                     /* Out only */
+  int numberoftriangles{ 0 };                       /* In / out */
+  int numberofcorners{ 0 };                         /* In / out */
+  int numberoftriangleattributes{ 0 };              /* In / out */
 
-  int *segmentlist;                                              /* In / out */
-  int *segmentmarkerlist;                                        /* In / out */
-  int numberofsegments;                                          /* In / out */
+  int *segmentlist{ nullptr };                      /* In / out */
+  int *segmentmarkerlist{ nullptr };				/* In / out */
+  int numberofsegments{ 0 };                        /* In / out */
 
-  TRI_REAL *holelist;                        /* In / pointer to array copied out */
-  int numberofholes;                                      /* In / copied out */
+  TRI_REAL *holelist{ nullptr };					/* In / pointer to array copied out */
+  int numberofholes{ 0 };                           /* In / copied out */
 
-  TRI_REAL *regionlist;                      /* In / pointer to array copied out */
-  int numberofregions;                                    /* In / copied out */
+  TRI_REAL *regionlist{ nullptr };					/* In / pointer to array copied out */
+  int numberofregions{ 0 };                         /* In / copied out */
 
-  int *edgelist;                                                 /* Out only */
-  int *edgemarkerlist;            /* Not used with Voronoi diagram; out only */
-  TRI_REAL *normlist;                /* Used only with Voronoi diagram; out only */
-  int numberofedges;                                             /* Out only */
+  int *edgelist{ nullptr };                         /* Out only */
+  int *edgemarkerlist{ nullptr };					/* Not used with Voronoi diagram; out only */
+  TRI_REAL *normlist{ nullptr };					/* Used only with Voronoi diagram; out only */
+  int numberofedges{ 0 };                           /* Out only */
 };
 
-void triangulate(char*, struct triangulateio*, struct triangulateio*, struct triangulateio*);
-void trifree(int* memptr);
+/*
+ *\brief 三角化
+ *
+ *\param	params		[in]	参数集，详情可参照https://www.cs.cmu.edu/~quake/triangle.switch.html
+ *\param	in			[in]	参与三角化的输入数据
+ *\param	triangles	[out]	三角化结果
+ *\param	voronoi		[out]	voronoi图
+ */
+void triangulate(char* params, 
+	struct triangulateio* in,
+	struct triangulateio* triangles, 
+	struct triangulateio* voronoi = nullptr
+);
+/*
+ *\brief 方便用户回收triangulateio里的内存
+ */
+void trifree(triangulateio&);

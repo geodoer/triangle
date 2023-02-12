@@ -140,67 +140,86 @@ int main()
 {
   struct triangulateio in, mid, out, vorout;
 
-  /* Define input points. */
+  { /* Define input points. */
+      { //points有4个
+          in.numberofpoints = 4;
+          in.pointlist = (REAL*)malloc(in.numberofpoints * 2 * sizeof(REAL));
+          //points[0]
+          in.pointlist[0] = 0.0;
+          in.pointlist[1] = 0.0;
+          //points[1]
+          in.pointlist[2] = 1.0;
+          in.pointlist[3] = 0.0;
+          //points[2]
+          in.pointlist[4] = 1.0;
+          in.pointlist[5] = 10.0;
+          //points[3]
+          in.pointlist[6] = 0.0;
+          in.pointlist[7] = 10.0;
+      }
 
-  in.numberofpoints = 4;
-  in.numberofpointattributes = 1;
-  in.pointlist = (REAL *) malloc(in.numberofpoints * 2 * sizeof(REAL));
-  in.pointlist[0] = 0.0;
-  in.pointlist[1] = 0.0;
-  in.pointlist[2] = 1.0;
-  in.pointlist[3] = 0.0;
-  in.pointlist[4] = 1.0;
-  in.pointlist[5] = 10.0;
-  in.pointlist[6] = 0.0;
-  in.pointlist[7] = 10.0;
-  in.pointattributelist = (REAL *) malloc(in.numberofpoints *
-                                          in.numberofpointattributes *
-                                          sizeof(REAL));
-  in.pointattributelist[0] = 0.0;
-  in.pointattributelist[1] = 1.0;
-  in.pointattributelist[2] = 11.0;
-  in.pointattributelist[3] = 10.0;
-  in.pointmarkerlist = (int *) malloc(in.numberofpoints * sizeof(int));
-  in.pointmarkerlist[0] = 0;
-  in.pointmarkerlist[1] = 2;
-  in.pointmarkerlist[2] = 0;
-  in.pointmarkerlist[3] = 0;
+      { //顶点属性
+          in.numberofpointattributes = 1;
+          in.pointattributelist = (REAL*)malloc(in.numberofpoints *
+              in.numberofpointattributes *
+              sizeof(REAL));
+          in.pointattributelist[0] = 0.0;
+          in.pointattributelist[1] = 1.0;
+          in.pointattributelist[2] = 11.0;
+          in.pointattributelist[3] = 10.0;
+      }
 
-  in.numberofsegments = 0;
-  in.numberofholes = 0;
-  in.numberofregions = 1;
-  in.regionlist = (REAL *) malloc(in.numberofregions * 4 * sizeof(REAL));
-  in.regionlist[0] = 0.5;
-  in.regionlist[1] = 5.0;
-  in.regionlist[2] = 7.0;            /* Regional attribute (for whole mesh). */
-  in.regionlist[3] = 0.1;          /* Area constraint that will not be used. */
+      { //顶点标记
+          in.pointmarkerlist = (int*)malloc(in.numberofpoints * sizeof(int));
+          in.pointmarkerlist[0] = 0;
+          in.pointmarkerlist[1] = 2;
+          in.pointmarkerlist[2] = 0;
+          in.pointmarkerlist[3] = 0;
+      }
 
-  printf("Input point set:\n\n");
-  report(&in, 1, 0, 0, 0, 0, 0);
+      //0个线段
+      in.numberofsegments = 0;
 
-  /* Make necessary initializations so that Triangle can return a */
-  /*   triangulation in `mid' and a voronoi diagram in `vorout'.  */
+      //0个洞（Polygon的岛）
+      in.numberofholes = 0;
 
-  mid.pointlist = (REAL *) NULL;            /* Not needed if -N switch used. */
-  /* Not needed if -N switch used or number of point attributes is zero: */
-  mid.pointattributelist = (REAL *) NULL;
-  mid.pointmarkerlist = (int *) NULL; /* Not needed if -N or -B switch used. */
-  mid.trianglelist = (int *) NULL;          /* Not needed if -E switch used. */
-  /* Not needed if -E switch used or number of triangle attributes is zero: */
-  mid.triangleattributelist = (REAL *) NULL;
-  mid.neighborlist = (int *) NULL;         /* Needed only if -n switch used. */
-  /* Needed only if segments are output (-p or -c) and -P not used: */
-  mid.segmentlist = (int *) NULL;
-  /* Needed only if segments are output (-p or -c) and -P and -B not used: */
-  mid.segmentmarkerlist = (int *) NULL;
-  mid.edgelist = (int *) NULL;             /* Needed only if -e switch used. */
-  mid.edgemarkerlist = (int *) NULL;   /* Needed if -e used and -B not used. */
+      //1个区域
+      in.numberofregions = 1;
+      in.regionlist = (REAL*)malloc(in.numberofregions * 4 * sizeof(REAL));
+      in.regionlist[0] = 0.5;
+      in.regionlist[1] = 5.0;
+      in.regionlist[2] = 7.0;            /* Regional attribute (for whole mesh). */
+      in.regionlist[3] = 0.1;          /* Area constraint that will not be used. */
 
-  vorout.pointlist = (REAL *) NULL;        /* Needed only if -v switch used. */
-  /* Needed only if -v switch used and number of attributes is not zero: */
-  vorout.pointattributelist = (REAL *) NULL;
-  vorout.edgelist = (int *) NULL;          /* Needed only if -v switch used. */
-  vorout.normlist = (REAL *) NULL;         /* Needed only if -v switch used. */
+      printf("Input point set:\n\n");
+      report(&in, 1, 0, 0, 0, 0, 0);
+  }
+
+  { //初始化mid, vorout
+      /* Make necessary initializations so that Triangle can return a */
+      /*   triangulation in `mid' and a voronoi diagram in `vorout'.  */
+
+      mid.pointlist = (REAL *) NULL;            /* Not needed if -N switch used. */
+      /* Not needed if -N switch used or number of point attributes is zero: */
+      mid.pointattributelist = (REAL *) NULL;
+      mid.pointmarkerlist = (int *) NULL; /* Not needed if -N or -B switch used. */
+      mid.trianglelist = (int *) NULL;          /* Not needed if -E switch used. */
+      /* Not needed if -E switch used or number of triangle attributes is zero: */
+      mid.triangleattributelist = (REAL *) NULL;
+      mid.neighborlist = (int *) NULL;         /* Needed only if -n switch used. */
+      /* Needed only if segments are output (-p or -c) and -P not used: */
+      mid.segmentlist = (int *) NULL;
+      /* Needed only if segments are output (-p or -c) and -P and -B not used: */
+      mid.segmentmarkerlist = (int *) NULL;
+      mid.edgelist = (int *) NULL;             /* Needed only if -e switch used. */
+      mid.edgemarkerlist = (int *) NULL;   /* Needed if -e used and -B not used. */
+
+      vorout.pointlist = (REAL *) NULL;        /* Needed only if -v switch used. */
+      /* Needed only if -v switch used and number of attributes is not zero: */
+      vorout.pointattributelist = (REAL *) NULL;
+      vorout.edgelist = (int *) NULL;          /* Needed only if -v switch used. */
+      vorout.normlist = (REAL *) NULL;         /* Needed only if -v switch used. */
+  }
 
   /* Triangulate the points.  Switches are chosen to read and write a  */
   /*   PSLG (p), preserve the convex hull (c), number everything from  */

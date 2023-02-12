@@ -16039,3 +16039,90 @@ char **argv;
   return 0;
 #endif /* not TRILIBRARY */
 }
+
+void trifree(triangulateio& in)
+{
+    if (in.pointlist)
+    {
+        free(in.pointlist);
+        in.pointlist = nullptr;
+    }
+
+    if (in.pointattributelist)
+    {
+        free(in.pointattributelist);
+        in.pointattributelist = nullptr;
+    }
+
+    if (in.pointmarkerlist)
+    {
+        free(in.pointmarkerlist);
+        in.pointmarkerlist = nullptr;
+    }
+
+    if (in.trianglelist)
+    {
+        free(in.trianglelist);
+        in.trianglelist = nullptr;
+    }
+
+    if (in.triangleattributelist)
+    {
+        free(in.triangleattributelist);
+        in.triangleattributelist = nullptr;
+    }
+
+    if (in.trianglearealist)
+    {
+        free(in.trianglearealist);
+        in.trianglearealist = nullptr;
+    }
+
+    if (in.neighborlist)
+    {
+        free(in.neighborlist);
+        in.neighborlist = nullptr;
+    }
+
+    if (in.segmentlist)
+    {
+        free(in.segmentlist);
+        in.segmentlist = nullptr;
+    }
+
+    if (in.segmentmarkerlist)
+    {
+        free(in.segmentmarkerlist);
+        in.segmentmarkerlist = nullptr;
+    }
+
+    if (in.holelist)
+    {
+        free(in.holelist);
+        in.holelist = nullptr;
+    }
+
+    if (in.regionlist)
+    {
+        free(in.regionlist);
+        in.regionlist = nullptr;
+    }
+
+    if (in.edgelist)
+    {
+        free(in.edgelist);
+        in.edgelist = nullptr;
+    }
+
+    if (in.edgemarkerlist)
+    {
+        free(in.edgemarkerlist);
+        in.edgemarkerlist = nullptr;
+    }
+
+    if (in.normlist)
+    {
+        free(in.normlist);
+        in.normlist = nullptr;
+    }
+}
