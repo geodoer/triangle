@@ -286,7 +286,5 @@ struct triangulateio {
   int numberofedges;                                             /* Out only */
 };
 
-void triangulate(char *, struct triangulateio *, struct triangulateio *,
-                 struct triangulateio *);
-void trifree(int *memptr);
-
+void triangulate(char*, struct triangulateio*, struct triangulateio*, struct triangulateio*);
+void trifree(int* memptr);

@@ -37,15 +37,13 @@
 /*                                                                           */
 /*****************************************************************************/
 
-void report(io, markers, reporttriangles, reportneighbors, reportsegments,
-            reportedges, reportnorms)
-struct triangulateio *io;
-int markers;
-int reporttriangles;
-int reportneighbors;
-int reportsegments;
-int reportedges;
-int reportnorms;
+void report(struct triangulateio* io,
+    int markers,
+    int reporttriangles,
+    int reportneighbors,
+    int reportsegments,
+    int reportedges,
+    int reportnorms)
 {
   int i, j;
 
