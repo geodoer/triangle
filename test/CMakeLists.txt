@@ -4,8 +4,7 @@ if(NOT BuildTriangle_Test)
   return()
 endif()
 
-set(TARGET_NAME triangle_test)
-set(TARGET_ALIAS_NAME triangle::test)
+set(TARGET_NAME test)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -20,6 +19,5 @@ file(GLOB_RECURSE SrcFiles ${CMAKE_CURRENT_LIST_DIR}/*.cpp ${CMAKE_CURRENT_LIST_
 
 enable_testing()
 add_executable(${TARGET_NAME} ${SrcFiles})
-target_link_libraries(${TARGET_NAME} PRIVATE triangle::triangle)
+target_link_libraries(${TARGET_NAME} PRIVATE triangle)
 target_link_libraries(${TARGET_NAME} PRIVATE doctest_with_main)
-add_executable(${TARGET_ALIAS_NAME} ALIAS ${TARGET_NAME})

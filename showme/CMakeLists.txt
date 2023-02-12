@@ -10,11 +10,8 @@ if(NOT BuildTriangle_ShowMe)
   return()
 endif()
 
-set(TARGET_NAME triangle_showme)
-set(TARGET_ALIAS_NAME triangle::showme)
+set(TARGET_NAME showme)
 
 find_package(X11)
 add_executable(${TARGET_NAME} showme.c)
-target_link_libraries(${TARGET_NAME} PRIVATE triangle::triangle)
-
-add_executable(${TARGET_ALIAS_NAME} ALIAS ${TARGET_NAME})
+target_link_libraries(${TARGET_NAME} PRIVATE triangle)

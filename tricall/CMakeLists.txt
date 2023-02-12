@@ -1,8 +1,8 @@
 option(BuildTriangle_TriCall "Build tricall" OFF)
 
 if(NOT BuildTriangle_TriCall)
+    return()
 endif()
 
-add_executable(triangle_tricall tricall.cpp)
-target_link_libraries(triangle_tricall PRIVATE triangle::triangle)
-add_executable(triangle::tricall ALIAS triangle_tricall)
+add_executable(tricall tricall.cpp)
+target_link_libraries(tricall PRIVATE triangle)
