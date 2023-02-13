@@ -1,4 +1,4 @@
-/*****************************************************************************/
+ï»¿/*****************************************************************************/
 /*                                                                           */
 /*  (triangle.h)                                                             */
 /*                                                                           */
@@ -284,15 +284,18 @@ struct triangulateio {
   int *edgemarkerlist{ nullptr };					/* Not used with Voronoi diagram; out only */
   TRI_REAL *normlist{ nullptr };					/* Used only with Voronoi diagram; out only */
   int numberofedges{ 0 };                           /* Out only */
+
+  // ä¿å­˜æˆobjæ ¼å¼çš„æ–‡ä»¶ï¼Œæ–¹ä¾¿æŸ¥çœ‹
+  bool exportToObj(const char* path);
 };
 
 /*
- *\brief Èı½Ç»¯
+ *\brief ä¸‰è§’åŒ–
  *
- *\param	params		[in]	²ÎÊı¼¯£¬ÏêÇé¿É²ÎÕÕhttps://www.cs.cmu.edu/~quake/triangle.switch.html
- *\param	in			[in]	²ÎÓëÈı½Ç»¯µÄÊäÈëÊı¾İ
- *\param	triangles	[out]	Èı½Ç»¯½á¹û
- *\param	voronoi		[out]	voronoiÍ¼
+ *\param	params		[in]	å‚æ•°é›†ï¼Œè¯¦æƒ…å¯å‚ç…§https://www.cs.cmu.edu/~quake/triangle.switch.html
+ *\param	in			[in]	å‚ä¸ä¸‰è§’åŒ–çš„è¾“å…¥æ•°æ®
+ *\param	triangles	[out]	ä¸‰è§’åŒ–ç»“æœ
+ *\param	voronoi		[out]	voronoiå›¾
  */
 void triangulate(char* params, 
 	struct triangulateio* in,
@@ -300,6 +303,6 @@ void triangulate(char* params,
 	struct triangulateio* voronoi = nullptr
 );
 /*
- *\brief ·½±ãÓÃ»§»ØÊÕtriangulateioÀïµÄÄÚ´æ
+ *\brief æ–¹ä¾¿ç”¨æˆ·å›æ”¶triangulateioé‡Œçš„å†…å­˜
  */
 void trifree(triangulateio&);

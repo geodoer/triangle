@@ -364,6 +364,8 @@
 #include "triangle.h"
 #endif /* TRILIBRARY */
 
+#include <fstream>
+
 /* A few forward declarations.                                               */
 
 #ifndef TRILIBRARY
@@ -16125,4 +16127,59 @@ void trifree(triangulateio& in)
         free(in.normlist);
         in.normlist = nullptr;
     }
+}
+
+bool triangulateio::exportToObj(const char* path)
+{
+    std::fstream out(path, std::ios_base::out);
+    if (!out.is_open())
+    {
+        return false;
+    }
+
+    out.precision(10);
+
+    for (int i{ 0 }; i < numberofpoints; ++i) 
+    {
+        out << "v";
+
+        for (int j{ 0 }; j < 2; ++j) 
+        {
+            out << " " << pointlist[i * 2 + j];
+        }
+
+        out << " 0.0";
+        out << std::endl;
+    }
+    
+    out << std::endl;
+
+    for (int i{ 0 }; i < numberoftriangles; ++i)
+    {
+        out << "f";
+
+        for (int j{ 0 }; j < numberofcorners; ++j) 
+        {
+            out << " " << trianglelist[i * numberofcorners + j] + 1; //obj的下标是从1开始
+        }
+
+        out << std::endl;
+    }
+
+    out << std::endl;
+
+    for (int i{ 0 }; i < numberofsegments; ++i) 
+    {
+        out << "l";
+
+        for (int j{ 0 }; j < 2; j++) 
+        {
+            out << " " << segmentlist[i * 2 + j] + 1; //obj的下标是从1开始
+        }
+
+        out << std::endl;
+    }
+
+    out.close();
+    return true;
 }

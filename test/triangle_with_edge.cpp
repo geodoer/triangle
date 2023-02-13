@@ -59,6 +59,7 @@ TEST_CASE("Edge constraint triangulation")
 #endif
 
     auto in = create(points, segments);
+    in.exportToObj("in.obj");
     printf("Input point set:\n\n");
     report(&in);
 
@@ -67,6 +68,7 @@ TEST_CASE("Edge constraint triangulation")
     triangulate("jpzQYY", &in, &triangles);
 
     printf("triangles: \n\n");
+    triangles.exportToObj("triangles.obj");
     report(&triangles);
 
     /* Free all allocated arrays, including those allocated by Triangle. */
