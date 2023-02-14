@@ -16139,8 +16139,12 @@ bool triangulateio::exportToObj(const char* path)
 
     out.precision(10);
 
+    out << "# ---------------------vertexs---------------------" << std::endl;
     for (int i{ 0 }; i < numberofpoints; ++i) 
     {
+        out << "# Vertex " << i+1 << std::endl;
+
+        //顶点位置
         out << "v";
 
         for (int j{ 0 }; j < 2; ++j) 
@@ -16150,12 +16154,37 @@ bool triangulateio::exportToObj(const char* path)
 
         out << " 0.0";
         out << std::endl;
+
+        //顶点属性
+        if (numberofpointattributes > 0 && pointattributelist)
+        {
+            out << "# [vertex attribute]";
+
+            for (int j{ 0 }; j < numberofpointattributes; j++) 
+            {
+                out << " " << pointattributelist[i * numberofpointattributes + j];
+            }
+
+            out << std::endl;
+        }
+
+        //顶点标记
+        if (pointmarkerlist) 
+        {
+            out << "# [vertex marker] " << pointmarkerlist[i] << std::endl;
+        }
+
+        out << std::endl;
     }
     
     out << std::endl;
 
+    out << "# ---------------------triangles---------------------" << std::endl;
     for (int i{ 0 }; i < numberoftriangles; ++i)
     {
+        out << "# Triangle " << i+1 << std::endl;
+
+        //三角形
         out << "f";
 
         for (int j{ 0 }; j < numberofcorners; ++j) 
@@ -16164,17 +16193,44 @@ bool triangulateio::exportToObj(const char* path)
         }
 
         out << std::endl;
+
+        //三角形属性
+        if (numberoftriangleattributes > 0 && triangleattributelist)
+        {
+            out << "# [face attribute]";
+
+            for (int j{ 0 }; j < numberoftriangleattributes; j++)
+            {
+                out << " " << triangleattributelist[i * numberoftriangleattributes + j];
+            }
+
+            out << std::endl;
+        }
+
+        out << std::endl;
     }
 
     out << std::endl;
 
-    for (int i{ 0 }; i < numberofsegments; ++i) 
+    out << "# ---------------------segments---------------------" << std::endl;
+    for (int i{ 0 }; i < numberofsegments; ++i)
     {
+        out << "# Segment " << i+1 << std::endl;
+
+        //线段索引
         out << "l";
 
-        for (int j{ 0 }; j < 2; j++) 
+        for (int j{ 0 }; j < 2; j++)
         {
             out << " " << segmentlist[i * 2 + j] + 1; //obj的下标是从1开始
+        }
+
+        out << std::endl;
+
+        //线段标记
+        if (segmentmarkerlist)
+        {
+            out << "# [segment marker] " << segmentmarkerlist[i] << std::endl;
         }
 
         out << std::endl;
